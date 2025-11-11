@@ -4,10 +4,11 @@ interface VideoFrameProps {
   colorId: string;
   action: string;
   gradient: string;
+  duration: number;
   onVideoEnd?: () => void;
 }
 
-const VideoFrame = ({ colorId, action, gradient, onVideoEnd }: VideoFrameProps) => {
+const VideoFrame = ({ colorId, action, gradient, duration, onVideoEnd }: VideoFrameProps) => {
   const [showAction, setShowAction] = useState(false);
 
   useEffect(() => {
@@ -16,16 +17,16 @@ const VideoFrame = ({ colorId, action, gradient, onVideoEnd }: VideoFrameProps) 
       setShowAction(true);
     }, 500);
 
-    // Simulate video duration (auto-progress after 5 seconds)
+    // Auto-progress after configurable duration
     const endTimer = setTimeout(() => {
       if (onVideoEnd) onVideoEnd();
-    }, 5000);
+    }, duration);
 
     return () => {
       clearTimeout(timer);
       clearTimeout(endTimer);
     };
-  }, [colorId, onVideoEnd]);
+  }, [colorId, duration, onVideoEnd]);
 
   return (
     <div

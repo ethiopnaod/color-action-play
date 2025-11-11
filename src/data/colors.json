@@ -3,48 +3,56 @@
     "id": "green",
     "name": "Green",
     "action": "RUN! 🏃‍♂️",
-    "gradient": "bg-gradient-green"
+    "gradient": "bg-gradient-green",
+    "duration": 5000
   },
   {
     "id": "red",
     "name": "Red",
     "action": "STOP! ✋",
-    "gradient": "bg-gradient-red"
+    "gradient": "bg-gradient-red",
+    "duration": 5000
   },
   {
     "id": "yellow",
     "name": "Yellow",
     "action": "SIT DOWN! 🪑",
-    "gradient": "bg-gradient-yellow"
+    "gradient": "bg-gradient-yellow",
+    "duration": 5000
   },
   {
     "id": "black",
     "name": "Black",
     "action": "TOUCH YOUR HAIR! 💁",
-    "gradient": "bg-gradient-black"
+    "gradient": "bg-gradient-black",
+    "duration": 5000
   },
   {
     "id": "white",
     "name": "White",
     "action": "TOUCH YOUR TEETH! 😁",
-    "gradient": "bg-gradient-white"
+    "gradient": "bg-gradient-white",
+    "duration": 5000
   },
   {
     "id": "blue",
     "name": "Blue",
     "action": "POINT TO THE SKY! ☁️",
-    "gradient": "bg-gradient-blue"
+    "gradient": "bg-gradient-blue",
+    "duration": 5000
   },
   {
     "id": "pink",
     "name": "Pink",
     "action": "STRIKE A POSE! 💃",
-    "gradient": "bg-gradient-pink"
+    "gradient": "bg-gradient-pink",
+    "duration": 5000
   },
   {
     "id": "purple",
     "name": "Purple",
     "action": "DANCE! 🕺",
-    "gradient": "bg-gradient-purple"
+    "gradient": "bg-gradient-purple",
+    "duration": 5000
   }
 ]

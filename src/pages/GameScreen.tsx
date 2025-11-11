@@ -1,25 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import VideoFrame from "@/components/VideoFrame";
-import NextButton from "@/components/NextButton";
 import colorsData from "@/data/colors.json";
 
 const GameScreen = () => {
   const navigate = useNavigate();
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
-  const currentColor = colorsData[currentColorIndex];
 
-  const handleNext = () => {
-    if (currentColorIndex < colorsData.length - 1) {
+  // Generate automatic sequence: random color → green → random color → green...
+  // Total rounds: 4 (each round = random + green)
+  const colorSequence = useMemo(() => {
+    const nonGreenColors = colorsData.filter(color => color.id !== "green");
+    const greenColor = colorsData.find(color => color.id === "green")!;
+    const sequence = [];
+    const rounds = 4;
+
+    for (let i = 0; i < rounds; i++) {
+      // Pick random non-green color
+      const randomIndex = Math.floor(Math.random() * nonGreenColors.length);
+      sequence.push(nonGreenColors[randomIndex]);
+      // Always follow with green
+      sequence.push(greenColor);
+    }
+
+    return sequence;
+  }, []);
+
+  const currentColor = colorSequence[currentColorIndex];
+
+  useEffect(() => {
+    // Reset to beginning when component mounts
+    setCurrentColorIndex(0);
+  }, []);
+
+  const handleAutoProgress = () => {
+    // Auto-progress to next color or closing
+    if (currentColorIndex < colorSequence.length - 1) {
       setCurrentColorIndex(currentColorIndex + 1);
     } else {
       navigate("/closing");
     }
-  };
-
-  const handleAutoProgress = () => {
-    // Auto-progress when video simulation ends
-    handleNext();
   };
 
   return (
@@ -30,19 +50,9 @@ const GameScreen = () => {
           colorId={currentColor.id}
           action={currentColor.action}
           gradient={currentColor.gradient}
+          duration={currentColor.duration}
           onVideoEnd={handleAutoProgress}
         />
-      </div>
-
-      {/* Controls */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-6">
-        {/* Progress indicator */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-full px-8 py-4 text-2xl md:text-3xl font-black text-foreground">
-          {currentColorIndex + 1} / {colorsData.length}
-        </div>
-
-        {/* Next Button */}
-        <NextButton onClick={handleNext} />
       </div>
     </div>
   );
